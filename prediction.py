@@ -13,6 +13,9 @@ import numpy as np
 import os
 import pandas as pd
 import pickle
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix
+
 
 class Predictions:
     
@@ -94,11 +97,10 @@ class Predictions:
         X=trainData1.iloc[:,:-1].values
         Y=trainData1.iloc[:,-1].values
         
-        from sklearn.ensemble import RandomForestClassifier
         # Create the model with 100 trees
         model = RandomForestClassifier(n_estimators=50, 
                                        bootstrap = True,
-                                       max_features = 'sqrt')
+                                       max_features = 'sqrt',random_state=10)
         # Fit on training data
         model.fit(X, Y)
         pickle.dump(model, open('model.pkl', 'wb'))
@@ -127,10 +129,15 @@ class Predictions:
         Xtest=testData.iloc[:,:].values
         
         model = pickle.load(open('model.pkl', 'rb'))
-        ypred=model.predict(Xtest)
+#        ypred=model.predict(Xtest)
+#        print(model.predict_proba(Xtest))
+        temp=model.predict_proba(Xtest).tolist()[0]
         
-        return ypred[0]
+        prob={temp.index(c):int(c*100) for c in sorted(temp)[-3:][::-1]}
+#        print(prob,0)
+        return prob
+    
 
-#p=Predictions()
-#p.testAudio()
+p3=Predictions()
+print(p3.trainModel())
 

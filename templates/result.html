@@ -44,7 +44,7 @@
 <div class="container" style="margin-top:50px">
   <h3 align="center" style="margin-bottom: 30px; margin-top: 30px">Top 3 Criminal Matches</h3>
   <div class="row">
-    {%for i in range(3)%} 
+    {%for i in res%} 
 
   <div class="col-sm-4" >
   <div class="alert alert-info">
@@ -52,7 +52,7 @@
         <img class="img-responsive center-block image_class" src="{{ url_for('static', filename = 'dummy.png') }}" width="50%">
         <br>
         
-          <h4 class="media-heading">Name : Criminal{{res[0][i]}}</h4>
+          <h4 class="media-heading">Name : Criminal-{{i}}</h4>
           <h4 class="media-heading">Age : 25</h4>
           <h4 class="media-heading">Gender : M</h4>
           
@@ -61,9 +61,9 @@
           </audio>     
 
         <div class="progress margins" style="height: 30px; width: 92%">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{res[1][i]}}"
-        aria-valuemin="0" aria-valuemax="100" style="width:{{res[1][i]}}% " >
-          <p class="p">{{res[1][i]}}% Match</p> 
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{res[i]}}"
+        aria-valuemin="0" aria-valuemax="100" style="width:{{res[i]}}% " >
+          <p class="p">{{res[i]}}%</p> 
         </div>
         </div>
 
